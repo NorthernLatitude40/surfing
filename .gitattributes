@@ -3,3 +3,5 @@
 *.jpg -text
 *.sh text eol=lf
 *.bat text eol=crlf
+*.jsp text
+*.xml text
