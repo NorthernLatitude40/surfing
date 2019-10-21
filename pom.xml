@@ -29,16 +29,48 @@
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
-      <version>2.3</version>
+      <version>2.5</version>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>jsp-api</artifactId>
       <version>2.0</version>
     </dependency>
+    <dependency>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-antrun-plugin</artifactId>
+      <version>1.8</version>
+    </dependency>
   </dependencies>
 
   <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.8</version>
+        <executions>
+          <execution>
+            <phase>compile</phase>
+            <configuration>
+              <target>
+                <!--
+                  将任务Ant任务放在这里，还可以在这里添加一个build.xml文件
+                -->
+
+                <echo message="compile classpath: ${basedir}"/>
+                <copy file="${basedir}/filter/123.txt" overwrite="true" tofile="${basedir}/1234.txt"><!--执行复制操作,todir的值是将要复制jar包到的地方,overwrite是否重写-->
+                </copy>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+
+
     <finalName>haha</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
