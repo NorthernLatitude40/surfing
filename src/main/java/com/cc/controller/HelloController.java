@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
+
 @ResponseBody
 @Controller
 public class HelloController {
@@ -15,7 +17,7 @@ public class HelloController {
     public Student hello(){
         Student zhangsan = new Student();
         zhangsan.setName("zhangsan");
-        zhangsan.setAge("23");
+        zhangsan.setAge(String.valueOf(new Date()));
         zhangsan.setGender("male");
         return zhangsan;
     }
