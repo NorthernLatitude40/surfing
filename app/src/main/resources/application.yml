@@ -1,0 +1,15 @@
+thymeleaf:
+  cache: false
+  prefix: classpath:/templates/
+  suffix: .html
+  mode: HTML5
+  encoding: UTF-8
+  content-type: text/html
+server:
+  port: 8082
+  servlet:
+    context-path: /owl
+spring:
+  mvc:
+    date-format: yyyy-MM-dd HH:mm
+
