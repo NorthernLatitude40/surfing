@@ -1,4 +1,4 @@
-package com.cc.owl.dao;
+package com.cc.owl.mapdao;
 
 import com.cc.domain.Department;
 import com.cc.domain.Employee;

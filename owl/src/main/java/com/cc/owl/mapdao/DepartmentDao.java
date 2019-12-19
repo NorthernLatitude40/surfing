@@ -1,4 +1,4 @@
-package com.cc.owl.dao;
+package com.cc.owl.mapdao;
 
 import java.util.Collection;
 import java.util.HashMap;

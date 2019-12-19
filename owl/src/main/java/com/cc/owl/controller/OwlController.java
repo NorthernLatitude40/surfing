@@ -3,9 +3,11 @@ package com.cc.owl.controller;
 import com.cc.domain.Department;
 import com.cc.domain.Employee;
 import com.cc.domain.Student;
-import com.cc.owl.dao.DepartmentDao;
-import com.cc.owl.dao.EmployeeDao;
+import com.cc.exception.UserNotExistException;
+import com.cc.owl.mapdao.DepartmentDao;
+import com.cc.owl.mapdao.EmployeeDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -26,11 +28,16 @@ public class OwlController {
     EmployeeDao employeeDao;
     @Autowired
     DepartmentDao departmentDao;
+    @Autowired
+    ApplicationContext applicationContext;
 
     @CrossOrigin(origins = "*")
     @RequestMapping("/hello2")
     @ResponseBody
-    public Student hello(){
+    public Student hello(@RequestParam("user") String user){
+        if ("aaa".equals(user)){
+            throw new UserNotExistException();
+        }
         Student zhangsan = new Student();
         zhangsan.setName("lisi");
         zhangsan.setAge(String.valueOf(new Date()));
@@ -123,14 +130,22 @@ public class OwlController {
     //员工修改；需要提交员工id；
     @PutMapping("/emp")
     public String updateEmployee(Employee employee){
+        String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
+        for (String name: beanDefinitionNames) {
+            System.out.println("/////////////////"+name);
+        }
         System.out.println("修改的员工数据："+employee);
         employeeDao.save(employee);
         return "redirect:/emps";
     }
 
     //员工删除
-    @PutMapping("/emp/{id}")
+    @DeleteMapping("/emp/{id}")
     public String deleteEmployee(@PathVariable("id") Integer id){
+        String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
+        for (String name: beanDefinitionNames) {
+            System.out.println("/////////////////"+name);
+        }
         employeeDao.delete(id);
         return "redirect:/emps";
     }

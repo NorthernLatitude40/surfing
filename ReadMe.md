@@ -1,5 +1,5 @@
 ------------------项目简介--------------
-Wayne是SpringBoot多模块分布式项目
+Wayne是SpringBoot多模块分布式微服务项目
 父工程Wayne
 核心业务模块owl
 Web模块app
@@ -10,7 +10,7 @@ Maven 3.3.9
 JDK 1.8
 IntelliJ IDEA2017
 ------------------部署环境--------------
-内嵌tomcat
+嵌入式tomcat8
 ------------------运行--------------
 $java -jar jar包名
 

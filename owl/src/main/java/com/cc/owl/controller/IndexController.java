@@ -19,7 +19,7 @@
 // * @Version: 1.0
 // */
 //@RestController
-//public class IndexContriller {
+//public class IndexController {
 //
 //    //记录器
 //    Logger logger = LoggerFactory.getLogger(IndexContriller.class);

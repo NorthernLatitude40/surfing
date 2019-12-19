@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * 登录验证拦截器,注册到webMvcConfigurerAdapter中使用
  * @Author: Wayne
  * @Date: 2019/12/17 11:30
  * @Version: 1.0

@@ -28,6 +28,33 @@ spring:
           min-idle: 0
           #连接超时时间
           timeout: 10000
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+  #   数据源基本配置
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.56.103:3306/wayne
+
+  #   数据源其他配置
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+  #   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall,log4j
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+
+
 #日志级别
 logging:
   level:
@@ -35,3 +62,11 @@ logging:
     root: info
     # 此包下所有class以DEBUG级别输出
     com.cc.owl: error
+
+#spring:
+#  mvc:
+#    hiddenmethod:
+#      filter:
+#        enabled: true
+
+
