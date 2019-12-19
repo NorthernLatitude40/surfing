@@ -4,12 +4,16 @@ import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 
 import javax.sql.DataSource;
 import java.util.Arrays;
@@ -20,9 +24,15 @@ import java.util.Map;
 public class DruidConfig {
     @Autowired
     private ApplicationContext applicationContext;
+
+//    @Bean
+//    public DataSourceInitializer dataSourceInitializer(DataSourceProperties properties, ApplicationContext applicationContext) {
+//        return new DataSourceInitializer(properties, applicationContext);
+//    }
+
     @ConfigurationProperties(prefix = "spring.datasource")
     @Bean
-    public DataSource druid(){
+    public DataSource druidDataSource(){
         String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
         for (String name: beanDefinitionNames) {
             System.out.println("/////////////////"+name);

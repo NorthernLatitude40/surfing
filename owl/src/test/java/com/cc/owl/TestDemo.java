@@ -1,5 +1,7 @@
 package com.cc.owl;
 
+import java.util.Properties;
+
 /**
  * @Author: Wayne
  * @Date: 2019/12/7 15:09
@@ -7,7 +9,7 @@ package com.cc.owl;
  */
 public class TestDemo {
     public static void main(String[] args) {
-        Math.abs(1);
+
     }
 
     public native void test1();
