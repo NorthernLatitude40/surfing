@@ -5,19 +5,31 @@ import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
 import com.cc.component.LoginHandlerInterceptor;
 import com.cc.component.WayneLocaleResolver;
+import com.cc.domain.Employee;
 import com.sun.beans.WeakCache;
 import com.sun.org.apache.xpath.internal.SourceTree;
 import edu.emory.mathcs.backport.java.util.Arrays;
 import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
+import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizer;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.data.redis.cache.RedisCacheWriter;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.*;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -47,6 +59,54 @@ import java.util.Map;
 @MapperScan(basePackages = {"com.cc.mapper"})
 @Configuration
 public class WayneConfig {
+
+//    @Bean(name = "redisTemplate")
+//    public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory){
+//        RedisTemplate<Object, Object> template = new RedisTemplate<Object, Object>();
+//        template.setConnectionFactory(redisConnectionFactory);
+//        GenericJackson2JsonRedisSerializer serializer = new GenericJackson2JsonRedisSerializer();
+//        template.setDefaultSerializer(serializer);
+//        return template;
+//    }
+
+    @Primary
+    @Bean
+    public RedisCacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
+        RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig();
+        redisCacheConfiguration = redisCacheConfiguration.
+                serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer())).
+                serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new Jackson2JsonRedisSerializer<String>(String.class)));
+        RedisCacheManager.RedisCacheManagerBuilder redisCacheManagerBuilder = RedisCacheManager.RedisCacheManagerBuilder.fromConnectionFactory(redisConnectionFactory);
+        RedisCacheManager.RedisCacheManagerBuilder redisCacheManagerBuilder1 = redisCacheManagerBuilder.cacheDefaults(redisCacheConfiguration);
+        RedisCacheManager build = redisCacheManagerBuilder1.build();
+        return build;
+    }
+
+//    @Primary
+//    @Bean
+//    public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
+//        //缓存配置对象
+//        RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig();
+//
+//        redisCacheConfiguration = redisCacheConfiguration
+//                //.entryTtl(Duration.ofMinutes(30L)) //设置缓存的默认超时时间：30分钟
+//                .disableCachingNullValues()             //如果是空值，不缓存
+//                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(keySerializer()))         //设置key序列化器
+//                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer((valueSerializer())));  //设置value序列化器
+//
+//        return RedisCacheManager
+//                .builder(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory))
+//                .cacheDefaults(redisCacheConfiguration).build();
+//    }
+//
+//    private RedisSerializer<String> keySerializer() {
+//        return new StringRedisSerializer();
+//    }
+//
+//    private RedisSerializer<Object> valueSerializer() {
+//        return new GenericJackson2JsonRedisSerializer();
+//    }
+
     @Bean
     public ConfigurationCustomizer configurationCustomizer(){
         return new ConfigurationCustomizer() {

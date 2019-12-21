@@ -1,25 +1,76 @@
+
+
+
+
+#添加redis配置
+spring:
+  datasource:
+#   数据源基本配置
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.56.103:3306/wayne?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+  redis:
+    host: 192.168.56.103
+  cache:
+    type: redis
+    cache-names: emp
+#  cache:
+#    cache-names: emp
+#    type: com.alibaba.druid.pool.DruidDataSource
+##   数据源其他配置
+#    initialSize: 5
+#    minIdle: 5
+#    maxActive: 20
+#    maxWait: 60000
+#    timeBetweenEvictionRunsMillis: 60000
+#    minEvictableIdleTimeMillis: 300000
+#    validationQuery: SELECT 1 FROM DUAL
+#    testWhileIdle: true
+#    testOnBorrow: false
+#    testOnReturn: false
+#    poolPreparedStatements: true
+##   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+#    filters: stat,wall,slf4j
+#    maxPoolPreparedStatementPerConnectionSize: 20
+#    useGlobalDataSourceStat: true
+#    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+  http:
+    encoding:
+     charset: UTF-8
+     force: true
+     enabled: true
+
+#日志级别
+logging:
+  level:
+    # root日志以WARN级别输出
+    root: info
+    # 此包下所有class以DEBUG级别输出
+    com.cc: debug
+
+
+#spring:
+#  mvc:
+#    hiddenmethod:
+#      filter:
+#        enabled: true
+
+server:
+  port: 9899
+  tomcat:
+    uri-encoding: ISO-8859-1
+
+  #添加Thymeleaf配置
 thymeleaf:
   cache: false
   prefix: classpath:/templates/
   suffix: .html
   mode: HTML5
-  encoding: UTF-8
+  encoding: GBK
   content-type: text/html
-server:
-  port: 8082
-  servlet:
-    context-path: /wayne
-spring:
-  mvc:
-    date-format: yyyy-MM-dd HH:mm
-    hiddenmethod:
-      filter:
-        enabled: true
-
-#mybatis:
-  # 指定全局配置文件位置
-#  config-location: classpath:mybatis/mybatis-config.xml
-  # 指定sql映射文件位置
-#  mapper-locations: classpath:mybatis/mapper/*.xml
-
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+debug: true
 

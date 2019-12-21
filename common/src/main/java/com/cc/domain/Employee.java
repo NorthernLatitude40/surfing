@@ -1,8 +1,9 @@
 package com.cc.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Employee {
+public class Employee implements Serializable {
 
 	private Integer id;
     private String lastName;
@@ -10,6 +11,7 @@ public class Employee {
     //1 male, 0 female
     private Integer gender;
     private Department department;
+    private Integer dId;
     private Date birth;
 
     public Integer getId() {
@@ -59,6 +61,15 @@ public class Employee {
     public void setBirth(Date birth) {
         this.birth = birth;
     }
+
+    public Integer getdId() {
+        return dId;
+    }
+
+    public void setdId(Integer dId) {
+        this.dId = dId;
+    }
+
     public Employee(Integer id, String lastName, String email, Integer gender,
                     Department department) {
         super();
@@ -68,6 +79,16 @@ public class Employee {
         this.gender = gender;
         this.department = department;
         this.birth = new Date();
+    }
+
+    public Employee(Integer id, String lastName, String email, Integer gender, Department department, Integer dId, Date birth) {
+        this.id = id;
+        this.lastName = lastName;
+        this.email = email;
+        this.gender = gender;
+        this.department = department;
+        this.dId = dId;
+        this.birth = birth;
     }
 
     public Employee() {
@@ -81,9 +102,8 @@ public class Employee {
                 ", email='" + email + '\'' +
                 ", gender=" + gender +
                 ", department=" + department +
+                ", dId=" + dId +
                 ", birth=" + birth +
                 '}';
     }
-	
-	
 }
