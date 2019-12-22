@@ -6,6 +6,7 @@ import com.alibaba.druid.support.http.WebStatFilter;
 import com.cc.component.LoginHandlerInterceptor;
 import com.cc.component.WayneLocaleResolver;
 import com.cc.domain.Employee;
+import com.cc.filter.WayneContextFilter;
 import com.sun.beans.WeakCache;
 import com.sun.org.apache.xpath.internal.SourceTree;
 import edu.emory.mathcs.backport.java.util.Arrays;
@@ -205,6 +206,17 @@ public class WayneConfig {
         FilterRegistrationBean filter = new FilterRegistrationBean();
         filter.setFilter(new WayneFilter());
         filter.setUrlPatterns(strings);
+        filter.setOrder(2);
+        return filter;
+    }
+
+    @Bean
+    public FilterRegistrationBean wayneContextFilter() {
+        FilterRegistrationBean filter = new FilterRegistrationBean(new WayneContextFilter());
+        filter.addUrlPatterns("/*"); //
+        //registration.addInitParameter("paramName", "paramValue"); //
+        filter.setName("wayneContextFilter");
+        filter.setOrder(1);
         return filter;
     }
 
