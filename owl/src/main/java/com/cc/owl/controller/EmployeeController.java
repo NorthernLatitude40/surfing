@@ -2,7 +2,6 @@ package com.cc.owl.controller;
 
 import com.cc.domain.Employee;
 import com.cc.owl.service.EmployeeService;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,13 +33,13 @@ public class EmployeeController {
         employeeService.addEmp(employee);
     }
 
-    @Delete("/employee/{id}")
+    @DeleteMapping("/employee/{id}")
     public void removeEmp(@PathVariable("id") Integer id){
         employeeService.removeEmp(id);
     }
 
-    @PutMapping("/employee/")
-    public void updateEmp(Employee employee){
+    @PutMapping("/employee")
+    public void updateEmp(@RequestBody Employee employee){
         employeeService.updateEmp(employee);
     }
 }

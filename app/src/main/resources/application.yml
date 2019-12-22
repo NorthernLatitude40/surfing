@@ -40,6 +40,10 @@ spring:
      charset: UTF-8
      force: true
      enabled: true
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
 
 #日志级别
 logging:
@@ -73,4 +77,8 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 debug: true
-
+#spring:
+#  mvc:
+#    hiddenmethod:
+#      filter:
+#        enabled: true
