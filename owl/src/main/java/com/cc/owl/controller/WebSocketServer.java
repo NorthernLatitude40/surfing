@@ -2,13 +2,16 @@ package com.cc.owl.controller;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArraySet;
+
+import static jodd.util.StringUtil.join;
 
 /**
  * @Author: Wayne
@@ -16,7 +19,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * @Version: 1.0
  */
 @ServerEndpoint("/websocket/{sid}")
-@Controller
+@Component
 public class WebSocketServer {
     static Log log= LogFactory.getLog(WebSocketServer.class);
     //静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
@@ -28,6 +31,55 @@ public class WebSocketServer {
     //接收sid
     private String sid="";
 
+    private String option;
+
+    public void addData(){
+        List<Integer> date = new ArrayList<>();
+        List<Double> data = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            Date now = new Date();
+
+            date.add(now.getHours());
+            data.add(now.getYear()*Math.random()*150);
+            this.option = "{\n" +
+                    "    \"xAxis\": {\n" +
+                    "        \"type\": \"category\",\n" +
+                    "        \"boundaryGap\": false,\n" +
+                    "        \"data\":" + date + "},\n" +
+                    "    \"yAxis\": {\n" +
+                    "        \"boundaryGap\": [\n" +
+                    "            0,\n" +
+                    "            \"50%\"\n" +
+                    "        ],\n" +
+                    "        \"type\": \"value\"\n" +
+                    "    },\n" +
+                    "    \"series\": [\n" +
+                    "        {\n" +
+                    "            \"name\": \"成交\",\n" +
+                    "            \"type\": \"line\",\n" +
+                    "            \"smooth\": true,\n" +
+                    "            \"symbol\": \"none\",\n" +
+                    "            \"stack\": \"a\",\n" +
+                    "            \"areaStyle\": {\n" +
+                    "                \"normal\": {}\n" +
+                    "            },\n" +
+                    "            \"data\":" + data + "\n" +
+                    "        }\n" +
+                    "    ]\n" +
+                    "}";
+            try {
+                Thread.sleep(1000);
+                sendMessage(option);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+    }
+
     /**
      * 连接建立成功调用的方法*/
     @OnOpen
@@ -37,11 +89,7 @@ public class WebSocketServer {
         addOnlineCount();           //在线数加1
         log.info("有新窗口开始监听:"+sid+",当前在线人数为" + getOnlineCount());
         this.sid=sid;
-        try {
-            sendMessage("连接成功");
-        } catch (IOException e) {
-            log.error("websocket IO异常");
-        }
+            this.addData();
     }
 
     /**
@@ -87,6 +135,14 @@ public class WebSocketServer {
      */
     public void sendMessage(String message) throws IOException {
         this.session.getBasicRemote().sendText(message);
+    }
+
+    public void sendMessage(Object message) throws IOException {
+        try {
+            this.session.getBasicRemote().sendObject(message);
+        } catch (EncodeException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

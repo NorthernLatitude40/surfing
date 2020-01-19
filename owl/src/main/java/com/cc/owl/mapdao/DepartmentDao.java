@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.cc.domain.Department;
+import com.cc.common.domain.Department;
 import org.springframework.stereotype.Repository;
 
 

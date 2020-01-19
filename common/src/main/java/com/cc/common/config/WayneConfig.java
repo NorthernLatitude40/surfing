@@ -1,37 +1,22 @@
-package com.cc.config;
+package com.cc.common.config;
 
-import com.alibaba.druid.pool.DruidDataSource;
-import com.alibaba.druid.support.http.StatViewServlet;
-import com.alibaba.druid.support.http.WebStatFilter;
-import com.cc.component.LoginHandlerInterceptor;
-import com.cc.component.WayneLocaleResolver;
-import com.cc.domain.Employee;
-import com.cc.filter.WayneContextFilter;
-import com.sun.beans.WeakCache;
-import com.sun.org.apache.xpath.internal.SourceTree;
+import com.cc.common.filter.WayneContextFilter;
+import com.cc.common.component.WayneLocaleResolver;
 import edu.emory.mathcs.backport.java.util.Arrays;
 import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
-import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizer;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
-import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
-import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.*;
-import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -41,12 +26,9 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Author: Wayne
@@ -57,7 +39,7 @@ import java.util.Map;
 //@EnableWebMvc 全面接管SpringMVC
 //@ComponentScan(basePackages = {"com.cc"})
 //@EnableConfigurationProperties
-@MapperScan(basePackages = {"com.cc.mapper"})
+@MapperScan(basePackages = {"com.cc.common.mapper"})
 @Configuration
 public class WayneConfig {
 
@@ -69,6 +51,11 @@ public class WayneConfig {
 //        template.setDefaultSerializer(serializer);
 //        return template;
 //    }
+
+    @Bean
+    public MessageConverter messageConverter(){
+        return new Jackson2JsonMessageConverter();
+    }
 
     @Primary
     @Bean

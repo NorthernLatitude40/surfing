@@ -1,4 +1,4 @@
-package com.cc.domain;
+package com.cc.common.domain;
 
 public class Department {
 

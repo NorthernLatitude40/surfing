@@ -1,9 +1,9 @@
 package com.cc.owl.controller;
 
-import com.cc.domain.Department;
-import com.cc.domain.Employee;
-import com.cc.domain.Student;
-import com.cc.exception.UserNotExistException;
+import com.cc.common.domain.Department;
+import com.cc.common.domain.Employee;
+import com.cc.common.domain.Student;
+import com.cc.common.exception.UserNotExistException;
 import com.cc.owl.mapdao.DepartmentDao;
 import com.cc.owl.mapdao.EmployeeDao;
 import org.springframework.beans.factory.annotation.Autowired;

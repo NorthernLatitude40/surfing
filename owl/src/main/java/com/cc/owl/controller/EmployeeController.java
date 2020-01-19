@@ -1,6 +1,6 @@
 package com.cc.owl.controller;
 
-import com.cc.domain.Employee;
+import com.cc.common.domain.Employee;
 import com.cc.owl.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

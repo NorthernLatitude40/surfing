@@ -1,4 +1,4 @@
-package com.cc.component;
+package com.cc.common.component;
 
 //import org.springframework.boot.autoconfigure.web.DefaultErrorAttributes;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;

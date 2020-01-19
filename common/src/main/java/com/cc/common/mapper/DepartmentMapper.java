@@ -1,6 +1,6 @@
-package com.cc.mapper;
+package com.cc.common.mapper;
 
-import com.cc.domain.Department;
+import com.cc.common.domain.Department;
 import org.apache.ibatis.annotations.*;
 
 /**

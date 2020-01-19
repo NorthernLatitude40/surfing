@@ -1,11 +1,9 @@
 package com.cc.owl.controller;
 
-import com.cc.exception.UserNotExistException;
+import com.cc.common.exception.UserNotExistException;
 //import org.springframework.boot.autoconfigure.web.servlet.error.AbstractErrorController;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;

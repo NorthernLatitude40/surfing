@@ -1,4 +1,4 @@
-package com.cc.domain;
+package com.cc.common.domain;
 
 import java.io.Serializable;
 import java.util.Date;

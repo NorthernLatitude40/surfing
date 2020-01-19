@@ -1,6 +1,6 @@
-package com.cc.mapper;
+package com.cc.common.mapper;
 
-import com.cc.domain.Employee;
+import com.cc.common.domain.Employee;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;

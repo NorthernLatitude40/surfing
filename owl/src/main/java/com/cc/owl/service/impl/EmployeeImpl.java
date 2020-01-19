@@ -1,7 +1,7 @@
 package com.cc.owl.service.impl;
 
-import com.cc.domain.Employee;
-import com.cc.mapper.EmployeeMapper;
+import com.cc.common.domain.Employee;
+import com.cc.common.mapper.EmployeeMapper;
 import com.cc.owl.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;

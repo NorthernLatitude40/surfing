@@ -1,4 +1,4 @@
-package com.cc.filter;
+package com.cc.common.filter;
 
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;

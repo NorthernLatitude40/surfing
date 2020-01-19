@@ -1,7 +1,7 @@
 package com.cc.owl.mapdao;
 
-import com.cc.domain.Department;
-import com.cc.domain.Employee;
+import com.cc.common.domain.Department;
+import com.cc.common.domain.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

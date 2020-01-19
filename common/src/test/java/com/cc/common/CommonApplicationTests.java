@@ -5,12 +5,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.HashMap;
 
-@SpringBootTest
-class CommonApplicationTests {
+@SpringBootTest(classes = CommonApplication.class)
+public class CommonApplicationTests {
 
 	@Test
-	void contextLoads() {
+	public void contextLoads() {
 		HashMap hashMap = new HashMap();
+		hashMap.put("name","zhangsan");
+	}
+	@Test
+	public void test1(){
+		System.out.println("22");
 	}
 
 }

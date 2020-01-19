@@ -1,6 +1,6 @@
 package com.cc.owl.service;
 
-import com.cc.domain.Employee;
+import com.cc.common.domain.Employee;
 
 import java.util.List;
 

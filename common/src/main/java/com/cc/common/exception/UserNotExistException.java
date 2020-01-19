@@ -1,4 +1,4 @@
-package com.cc.exception;
+package com.cc.common.exception;
 
 /**
  * @Author: Wayne
